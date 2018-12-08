@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MemoryGameModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BirthDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Feedback" Relationship="MemoryGameModel.FK_Feedback_Users" FromRole="Users" ToRole="Feedback" />
+    <NavigationProperty Name="GameResult" Relationship="MemoryGameModel.FK_GameResult_Users" FromRole="Users" ToRole="GameResult" />
+  </EntityType>
+  <EntityContainer Name="MemoryGameEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <EntitySet Name="ContactMessage" EntityType="MemoryGameModel.ContactMessage" />
+    <EntitySet Name="Feedback" EntityType="MemoryGameModel.Feedback" />
+    <EntitySet Name="GameResult" EntityType="MemoryGameModel.GameResult" />
+    <EntitySet Name="Images" EntityType="MemoryGameModel.Images" />
+    <AssociationSet Name="FK_Feedback_Users" Association="MemoryGameModel.FK_Feedback_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Feedback" EntitySet="Feedback" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GameResult_Users" Association="MemoryGameModel.FK_GameResult_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="GameResult" EntitySet="GameResult" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ContactMessage">
+    <Key>
+      <PropertyRef Name="MessageId" />
+    </Key>
+    <Property Name="MessageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MessageDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MessageText" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Feedback">
+    <Key>
+      <PropertyRef Name="FeedbackId" />
+    </Key>
+    <Property Name="FeedbackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="FeedbackDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FeedbackText" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Users" Relationship="MemoryGameModel.FK_Feedback_Users" FromRole="Feedback" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="GameResult">
+    <Key>
+      <PropertyRef Name="GameId" />
+    </Key>
+    <Property Name="GameId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="GameDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="GameDuration" Type="Int64" Nullable="false" />
+    <Property Name="CountOfSteps" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="MemoryGameModel.FK_GameResult_Users" FromRole="GameResult" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Images">
+    <Key>
+      <PropertyRef Name="ImageId" />
+    </Key>
+    <Property Name="ImageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ImageName" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_Feedback_Users">
+    <End Type="MemoryGameModel.Users" Role="Users" Multiplicity="1" />
+    <End Type="MemoryGameModel.Feedback" Role="Feedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Feedback">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GameResult_Users">
+    <End Type="MemoryGameModel.Users" Role="Users" Multiplicity="1" />
+    <End Type="MemoryGameModel.GameResult" Role="GameResult" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="GameResult">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

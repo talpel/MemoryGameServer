@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="MemoryGameModelStoreContainer" CdmEntityContainer="MemoryGameEntities1">
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="MemoryGameModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContactMessage">
+      <EntityTypeMapping TypeName="MemoryGameModel.ContactMessage">
+        <MappingFragment StoreEntitySet="ContactMessage">
+          <ScalarProperty Name="MessageText" ColumnName="MessageText" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="MessageDateTime" ColumnName="MessageDateTime" />
+          <ScalarProperty Name="MessageId" ColumnName="MessageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Feedback">
+      <EntityTypeMapping TypeName="MemoryGameModel.Feedback">
+        <MappingFragment StoreEntitySet="Feedback">
+          <ScalarProperty Name="FeedbackText" ColumnName="FeedbackText" />
+          <ScalarProperty Name="FeedbackDateTime" ColumnName="FeedbackDateTime" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="FeedbackId" ColumnName="FeedbackId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GameResult">
+      <EntityTypeMapping TypeName="MemoryGameModel.GameResult">
+        <MappingFragment StoreEntitySet="GameResult">
+          <ScalarProperty Name="CountOfSteps" ColumnName="CountOfSteps" />
+          <ScalarProperty Name="GameDuration" ColumnName="GameDuration" />
+          <ScalarProperty Name="GameDateTime" ColumnName="GameDateTime" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="GameId" ColumnName="GameId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Images">
+      <EntityTypeMapping TypeName="MemoryGameModel.Images">
+        <MappingFragment StoreEntitySet="Images">
+          <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+          <ScalarProperty Name="ImageId" ColumnName="ImageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

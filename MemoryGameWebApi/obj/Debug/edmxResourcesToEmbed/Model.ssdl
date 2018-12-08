@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MemoryGameModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ContactMessage">
+    <Key>
+      <PropertyRef Name="MessageId" />
+    </Key>
+    <Property Name="MessageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MessageDateTime" Type="datetime" Nullable="false" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="15" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="MessageText" Type="varchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Feedback">
+    <Key>
+      <PropertyRef Name="FeedbackId" />
+    </Key>
+    <Property Name="FeedbackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="FeedbackDateTime" Type="datetime" Nullable="false" />
+    <Property Name="FeedbackText" Type="varchar" MaxLength="500" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GameResult">
+    <Key>
+      <PropertyRef Name="GameId" />
+    </Key>
+    <Property Name="GameId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="GameDateTime" Type="datetime" Nullable="false" />
+    <Property Name="GameDuration" Type="bigint" Nullable="false" />
+    <Property Name="CountOfSteps" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Images">
+    <Key>
+      <PropertyRef Name="ImageId" />
+    </Key>
+    <Property Name="ImageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ImageName" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="UserName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="BirthDate" Type="date" />
+  </EntityType>
+  <Association Name="FK_Feedback_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Feedback">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GameResult_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="GameResult" Type="Self.GameResult" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="GameResult">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MemoryGameModelStoreContainer">
+    <EntitySet Name="ContactMessage" EntityType="Self.ContactMessage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Feedback" EntityType="Self.Feedback" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GameResult" EntityType="Self.GameResult" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Images" EntityType="Self.Images" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Feedback_Users" Association="Self.FK_Feedback_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Feedback" EntitySet="Feedback" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GameResult_Users" Association="Self.FK_GameResult_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="GameResult" EntitySet="GameResult" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
